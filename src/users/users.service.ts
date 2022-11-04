@@ -13,7 +13,9 @@ export class UsersService {
   ) {}
 
   async getUser(id: string) {
-    return await this.usersRepository.findOne({ where: { id } });
+    const user = await this.usersRepository.findOne({ where: { id } });
+    user.password = undefined;
+    return user;
   }
 
   async getUserByEmail(mail: string) {
@@ -21,7 +23,8 @@ export class UsersService {
   }
 
   async getAllUsers(): Promise<User[]> {
-    return await this.usersRepository.find();
+    const users = await this.usersRepository.find();
+    return users.map((user) => this.removePassword(user));
   }
 
   async createUser(dto: CreateUserDto): Promise<User> {
@@ -38,6 +41,11 @@ export class UsersService {
   async deleteUser(id: string): Promise<User> {
     const user = await this.usersRepository.findOneBy({ id });
     await this.usersRepository.delete(id);
+    return user;
+  }
+
+  private removePassword(user: User) {
+    user.password = undefined;
     return user;
   }
 }
