@@ -5,10 +5,14 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { DataSource } from 'typeorm';
 import { User } from './users/entity/user.entity';
+import { ChatModule } from './chat/chat.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     UsersModule,
+    ChatModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
