@@ -13,6 +13,10 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async auth(user) {
+    return await this.usersService.getUser(user.id);
+  }
+
   async login(dto: LoginDto): Promise<string> {
     try {
       const user = await this.usersService.getUserByEmail(dto.mail);
