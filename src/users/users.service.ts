@@ -44,6 +44,15 @@ export class UsersService {
     return user;
   }
 
+  async getUserChatsById(id: string) {
+    return await this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        chats: true,
+      },
+    });
+  }
+
   private removePassword(user: User) {
     user.password = undefined;
     return user;

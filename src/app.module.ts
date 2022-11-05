@@ -7,6 +7,9 @@ import { DataSource } from 'typeorm';
 import { User } from './users/entity/user.entity';
 import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
+import { Chat } from './chat/entity/chat.entity';
+import { MessageModule } from './message/message.module';
+import { Message } from './message/entity/message.entity';
 
 @Module({
   imports: [
@@ -20,9 +23,10 @@ import { AuthModule } from './auth/auth.module';
       username: 'admin',
       password: 'root',
       database: 'postgres',
-      entities: [User],
+      entities: [User, Chat, Message],
       synchronize: true,
     }),
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
